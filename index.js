@@ -3,7 +3,8 @@ const carouselBtn = document.querySelector(".carousel-buttons")
 const btnNext = document.querySelector(".btn-next")
 const btnPrev = document.querySelector(".btn-prev")
 
-const renderTodolist = (data) => {
+//Getting Data
+const renderMovielist = (data) => {
   let output = "";
   data
     .sort((a, b) => b.id - a.id)
@@ -24,11 +25,13 @@ const renderTodolist = (data) => {
   console.log(data);
 };
 
+// Get - Read the movielist
+// Method: Get
 const URL = "http://localhost:4232/movies";
 
 fetch(URL)
   .then((res) => res.json())
-  .then((data) => renderTodolist(data));
+  .then((data) => renderMovielist(data));
 
 slider.append((e) => {
   e.preventDefault();
