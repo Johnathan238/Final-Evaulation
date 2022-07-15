@@ -5,6 +5,12 @@
   list-style-type: none;
   text-decoration: none;
 }
+
+h1{
+  text-align: center;
+  padding-top: 2%;
+}
+
 .main{
   width: 100%;
   height: 100vh;
@@ -38,6 +44,7 @@
 #slider::-webkit-scrollbar{
   display: none;
 }
+
 
 p{
   color: aliceblue;

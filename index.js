@@ -1,4 +1,7 @@
 const slider = document.getElementById("slider");
+const carouselBtn = document.querySelector(".carousel-buttons")
+const btnNext = document.querySelector(".btn-next")
+const btnPrev = document.querySelector(".btn-prev")
 
 const renderTodolist = (data) => {
   let output = "";
@@ -6,12 +9,14 @@ const renderTodolist = (data) => {
     .sort((a, b) => b.id - a.id)
     .forEach((datas) => {
       output += `
-    <div id="carousel">
+    <div class="carousel">
+    <div class="carousel__item">
       <li class=data-id=${datas.id}>
         <img src="${datas.imgUrl}">
         <h3 class="btn--edit" id="${datas.id}">${datas.name}</h3>
         <p class="btn--delete" id="${datas.id}">${datas.outlineInfo}</p>
       </li>
+      </div>
     </div>
     `;
     });
@@ -25,33 +30,6 @@ fetch(URL)
   .then((res) => res.json())
   .then((data) => renderTodolist(data));
 
-// fetch(URL).then((data) => {
-//     console.log(data.json());
-// return data.json();
-// })
-//     .then((jsondata) => {
-// console.log(jsondata[0].url);
-//now using map method we will get all url
-//         jsondata.map((val) => {
-//             console.log(val.url);
-//             key = val.id;
-//             let img = document.createElement("img");
-//now we will call 2nd api for images
-//             img.src = `http://localhost:4232/movies${key}`;
-//             slider.appendChild(img);
-//         })
-//     });
-
-// const getMovies = () => {
-//   fetch(`${URL}/`)
-//     .then(response => response.json())
-//     .then(data => {
-//       data.results.forEach(element => {
-//         createElements(element)
-//       });
-//     })
-//   }
-
 slider.append((e) => {
   e.preventDefault();
   fetch(URL, {
@@ -63,4 +41,24 @@ slider.append((e) => {
       "Content-Type": "application/json",
     },
   });
-});
+})
+
+// Slider window Scroll Right
+let scrollAmount = 0;
+let scrollMax = slider.clientWidth
+
+btnNext.addEventListener('click', function () {
+  slider.scrollTo({
+    left: Math.max(scrollAmount += 500, scrollMax),
+    behavior: 'smooth'
+  })
+})
+
+// Slider window Scroll left
+btnPrev.addEventListener('click', function () {
+  slider.scrollTo({
+    left: Math.min(scrollAmount -= 500, scrollMax),
+    behavior: 'smooth'
+  })
+})
+
